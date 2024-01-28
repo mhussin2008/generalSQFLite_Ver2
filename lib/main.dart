@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:general_sqflite_ver2/testHelperHome.dart';
+
+import 'SimpleTable.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Database Manager'),
     );
   }
 }
@@ -35,9 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-          actions: const [],
+          title: Center(child: Text(widget.title)),
+          // actions: const [],
         ),
-        body: const testHelperHome());
+        // drawer: sideDrawer(),
+        body: SimpleTablePage());
   }
 }

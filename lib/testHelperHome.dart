@@ -1,7 +1,6 @@
 import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:general_sqflite_ver2/sideDrawer.dart';
 
 class testHelperHome extends StatelessWidget {
   const testHelperHome({super.key});
@@ -10,7 +9,6 @@ class testHelperHome extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle myStyle = const TextStyle(fontSize: 25);
     return Scaffold(
-        drawer: sideDrawer(),
         appBar: AppBar(
           title: const Text('test helper'),
           actions: [
