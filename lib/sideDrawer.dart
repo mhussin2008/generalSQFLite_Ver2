@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:general_sqflite_ver2/dataClass.dart';
 
 Drawer sideDrawer() {
   List<String> captionsUpper = [
@@ -57,7 +58,15 @@ Drawer sideDrawer() {
                 child: SizedBox(
                   width: 160,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Text(commandsUpper[index])),
+                      onPressed: () {
+                        if (index == 0) {
+                          generalKeys.dataTableKey.currentState!.setState(() {
+                            status[0] = true;
+                            RecordsListClass.generateData();
+                          });
+                        }
+                      },
+                      child: Text(commandsUpper[index])),
                 ),
               ),
               Padding(
@@ -65,7 +74,15 @@ Drawer sideDrawer() {
                 child: SizedBox(
                   width: 160,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Text(commandsLower[index])),
+                      onPressed: () {
+                        if (index == 0) {
+                          generalKeys.dataTableKey.currentState!.setState(() {
+                            status[0] = false;
+                            RecordsListClass.recordsList.clear();
+                          });
+                        }
+                      },
+                      child: Text(commandsLower[index])),
                 ),
               ),
             ],

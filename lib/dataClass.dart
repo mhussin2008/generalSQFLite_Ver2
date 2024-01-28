@@ -1,5 +1,11 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+
+class generalKeys {
+  static GlobalKey dataTableKey = GlobalKey();
+}
+
 class SingleRecordClass {
   final String name;
   final int age;
