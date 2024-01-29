@@ -126,6 +126,10 @@ class DrawerWidget extends StatelessWidget {
                           if (index == 3) {
                             // get data from DB
                             await DbHelper.readFromDatabase();
+                            if (RecordsListClass.recordsList.isNotEmpty) {
+                              generalKeys.statusNotifier[0].value = true;
+                              generalKeys.statusNotifier[3].value = true;
+                            }
                             generalKeys.dataTableKey.currentState!
                                 .setState(() {});
                           }
