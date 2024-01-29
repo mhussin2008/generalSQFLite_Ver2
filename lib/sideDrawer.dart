@@ -22,7 +22,7 @@ class DrawerWidget extends StatelessWidget {
     ];
     List<String> commandsUpper = [
       'Generate data',
-      'Create DB',
+      'Create/Open DB',
       'Create Table',
       'Save data to DB'
     ];
