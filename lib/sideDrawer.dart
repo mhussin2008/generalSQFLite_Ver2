@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:general_sqflite_ver2/dataClass.dart';
 
+import 'dbHelper.dart';
+
 class DrawerWidget extends StatelessWidget {
   DrawerWidget() : super(key: generalKeys.drawerKey);
 
@@ -32,13 +34,13 @@ class DrawerWidget extends StatelessWidget {
     ];
     List<bool> status = List.generate(captions.length, (index) => false);
 
-    var img1 = Container(
+    var imageTrue = Container(
         color: Colors.white.withOpacity(0),
         width: 40,
         height: 40,
         child: const Image(image: AssetImage('assets/icons/trans_right.png')));
 
-    var img2 = Container(
+    var imageFalse = Container(
 
         //opacity: 1.0,
         color: Colors.white.withOpacity(0),
@@ -60,13 +62,37 @@ class DrawerWidget extends StatelessWidget {
                   child: SizedBox(
                     width: 160,
                     child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (index == 0) {
                             generalKeys.statusNotifier[0].value = true;
                             generalKeys.dataTableKey.currentState!.setState(() {
                               status[0] = true;
                               RecordsListClass.generateData();
                             });
+                          }
+                          if (index == 1) {
+                            /// create DB
+                            await DbHelper.initialize();
+                            if (DbHelper.dbExists == true) {
+                              generalKeys.statusNotifier[1].value = true;
+                            }
+                          }
+                          if (index == 2) {
+                            await DbHelper.createTable();
+                            if (DbHelper.tableExists == true) {
+                              print('created table okok');
+                              generalKeys.statusNotifier[2].value = true;
+                            }
+                          }
+
+                          //save to db
+                          if (index == 3) {
+                            //save to db
+                            if (RecordsListClass.recordsList.isNotEmpty) {
+                              await DbHelper.addDataToTable(
+                                  RecordsListClass.recordsList);
+                              generalKeys.statusNotifier[3].value = true;
+                            }
                           }
                         },
                         child: Text(commandsUpper[index])),
@@ -77,7 +103,7 @@ class DrawerWidget extends StatelessWidget {
                   child: SizedBox(
                     width: 160,
                     child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (index == 0) {
                             generalKeys.statusNotifier[0].value = false;
 
@@ -86,6 +112,22 @@ class DrawerWidget extends StatelessWidget {
 
                               RecordsListClass.recordsList.clear();
                             });
+                          }
+                          if (index == 1) {
+                            await DbHelper.deleteDatabase();
+                            generalKeys.statusNotifier[1].value = false;
+                          }
+                          if (index == 2) {
+                            await DbHelper.deleteTable();
+                            if (DbHelper.tableExists == false) {
+                              generalKeys.statusNotifier[2].value = false;
+                            }
+                          }
+                          if (index == 3) {
+                            // get data from DB
+                            await DbHelper.readFromDatabase();
+                            generalKeys.dataTableKey.currentState!
+                                .setState(() {});
                           }
                         },
                         child: Text(commandsLower[index])),
@@ -109,8 +151,8 @@ class DrawerWidget extends StatelessWidget {
                       print(
                           'im here ${generalKeys.statusNotifier[index].value}');
                       return generalKeys.statusNotifier[index].value
-                          ? img1
-                          : img2;
+                          ? imageTrue
+                          : imageFalse;
                     }),
                 //status[index] == true ? img1 : img2,
               ]),

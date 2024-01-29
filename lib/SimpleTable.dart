@@ -23,7 +23,7 @@ class _SimpleTablePageState extends State<SimpleTablePage> {
     return Scaffold(
       //key: generalKeys.dataTableKey,
       appBar: AppBar(
-        title: Text('${RecordsListClass.recordsList.length}'),
+        title: Text('Total Records=${RecordsListClass.recordsList.length}'),
       ),
       drawer: DrawerWidget(),
       body: HorizontalDataTable(
