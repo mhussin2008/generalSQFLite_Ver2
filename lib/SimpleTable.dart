@@ -23,9 +23,9 @@ class _SimpleTablePageState extends State<SimpleTablePage> {
     return Scaffold(
       //key: generalKeys.dataTableKey,
       appBar: AppBar(
-          //title: Text('hello'),
-          ),
-      drawer: sideDrawer(),
+        title: Text('${RecordsListClass.recordsList.length}'),
+      ),
+      drawer: DrawerWidget(),
       body: HorizontalDataTable(
           leftHandSideColumnWidth: 300,
           rightHandSideColumnWidth: 100,

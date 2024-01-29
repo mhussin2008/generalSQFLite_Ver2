@@ -1,9 +1,12 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class generalKeys {
   static GlobalKey dataTableKey = GlobalKey();
+  static GlobalKey drawerKey = GlobalKey();
+  static List<ValueNotifier> statusNotifier =
+      List.generate(4, (index) => ValueNotifier(false));
 }
 
 class SingleRecordClass {
