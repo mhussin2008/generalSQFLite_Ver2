@@ -38,7 +38,8 @@ class DrawerWidget extends StatelessWidget {
         color: Colors.white.withOpacity(0),
         width: 40,
         height: 40,
-        child: const Image(image: AssetImage('assets/icons/trans_right.png')));
+        child: const Image(
+            image: AssetImage('assets/icons/wright_blue_trans.png')));
 
     var imageFalse = Container(
 
@@ -51,7 +52,7 @@ class DrawerWidget extends StatelessWidget {
     Card getCard(int index) {
       return Card(
         margin: const EdgeInsets.all(8),
-        color: Colors.lime,
+        color: const Color.fromARGB(139, 126, 236, 115),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
