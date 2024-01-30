@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:word_generator/word_generator.dart';
 
 class generalKeys {
   static GlobalKey dataTableKey = GlobalKey();
@@ -17,8 +18,8 @@ class SingleRecordClass {
   SingleRecordClass.empty({this.name = '', this.age = 0});
   SingleRecordClass.byDefault({this.name = 'Ahmed', this.age = 30});
   SingleRecordClass.random()
-      : name = Random().nextInt(100).toString(),
-        age = Random().nextInt(100);
+      : age = Random().nextInt(100),
+        name = WordGenerator().randomName();
 }
 
 class RecordsListClass {
