@@ -76,6 +76,9 @@ class DrawerWidget extends StatelessWidget {
                             if (DbHelper.dbExists == true) {
                               generalKeys.statusNotifier[1].value = true;
                             }
+                            if (DbHelper.tableExists == true) {
+                              generalKeys.statusNotifier[2].value = true;
+                            }
                           }
                           if (index == 2) {
                             await DbHelper.createTable();
@@ -152,8 +155,8 @@ class DrawerWidget extends StatelessWidget {
                 ValueListenableBuilder(
                     valueListenable: generalKeys.statusNotifier[index],
                     builder: (context, snapshot, child) {
-                      print(
-                          'im here ${generalKeys.statusNotifier[index].value}');
+                      // print(
+                      //     'im here ${generalKeys.statusNotifier[index].value}');
                       return generalKeys.statusNotifier[index].value
                           ? imageTrue
                           : imageFalse;

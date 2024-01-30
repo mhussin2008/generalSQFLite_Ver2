@@ -31,6 +31,8 @@ class DbHelper {
     }).catchError((err) {
       throw Exception('$err \n Error initializing database');
     });
+    print(' i will run table exist func');
+    await tableExistsFunc();
   }
 
   static void dbExistsFunc() {
@@ -183,6 +185,7 @@ class DbHelper {
       } else {
         print('database not opened yet');
       }
-    }
+    } else
+      print('database doesnt exist');
   }
 }
