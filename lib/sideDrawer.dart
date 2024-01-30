@@ -120,6 +120,8 @@ class DrawerWidget extends StatelessWidget {
                           if (index == 1) {
                             await DbHelper.deleteDatabase();
                             generalKeys.statusNotifier[1].value = false;
+                            generalKeys.statusNotifier[2].value = false;
+                            generalKeys.statusNotifier[3].value = false;
                           }
                           if (index == 2) {
                             await DbHelper.deleteTable();
