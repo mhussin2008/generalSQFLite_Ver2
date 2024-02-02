@@ -30,7 +30,7 @@ class _SimpleTablePageState extends State<SimpleTablePage> {
               const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
         )),
       ),
-      drawer: DrawerWidget(),
+      drawer: DrawerWidget(callBackFunc),
       body: HorizontalDataTable(
           leftHandSideColumnWidth: 300,
           rightHandSideColumnWidth: 100,
@@ -137,5 +137,12 @@ class _SimpleTablePageState extends State<SimpleTablePage> {
         // ),
       ],
     );
+  }
+
+  callBackFunc() {
+    print('function called ok');
+    setState(() {
+
+    });
   }
 }

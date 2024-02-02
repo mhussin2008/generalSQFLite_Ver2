@@ -4,8 +4,8 @@ import 'package:general_sqflite_ver2/dataClass.dart';
 import 'dbHelper.dart';
 
 class DrawerWidget extends StatelessWidget {
-  DrawerWidget() : super(key: generalKeys.drawerKey);
-
+  DrawerWidget(this.callBackFunc) : super(key: generalKeys.drawerKey);
+  final VoidCallback callBackFunc;
   @override
   Widget build(BuildContext context) {
     List<String> captionsUpper = [
@@ -66,10 +66,17 @@ class DrawerWidget extends StatelessWidget {
                         onPressed: () async {
                           if (index == 0) {
                             generalKeys.statusNotifier[0].value = true;
-                            generalKeys.dataTableKey.currentState!.setState(() {
-                              status[0] = true;
-                              RecordsListClass.generateData();
-                            });
+
+                            // generalKeys.dataTableKey.currentState!.setState(() {
+                            //   status[0] = true;
+                            //   RecordsListClass.generateData();
+                            // });
+                            ///  call back function
+                            //status[0]=true;
+                            RecordsListClass.generateData();
+                            callBackFunc();
+
+
                           }
                           if (index == 1) {
                             /// create DB
@@ -111,11 +118,14 @@ class DrawerWidget extends StatelessWidget {
                           if (index == 0) {
                             generalKeys.statusNotifier[0].value = false;
 
-                            generalKeys.dataTableKey.currentState!.setState(() {
-                              status[0] = false;
+                            // generalKeys.dataTableKey.currentState!.setState(() {
+                            //   status[0] = false;
+                            //
+                            //   RecordsListClass.recordsList.clear();
+                            // });
+                            RecordsListClass.recordsList.clear();
+                            callBackFunc();
 
-                              RecordsListClass.recordsList.clear();
-                            });
                           }
                           if (index == 1) {
                             await DbHelper.deleteDatabase();
