@@ -96,7 +96,7 @@ class DrawerWidget extends StatelessWidget {
                               await DbHelper.addDataToTable(
                                   RecordsListClass.recordsList);
                               generalKeys.statusNotifier[3].value = true;
-                            }
+                            }else(print('Empty Data Table'));
                           }
                         },
                         child: Text(commandsUpper[index])),

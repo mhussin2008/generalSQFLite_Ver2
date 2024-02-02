@@ -66,6 +66,10 @@ class DbHelper {
 
   static Future<void> addDataToTable(List<SingleRecordClass> txRecords) async {
     int result;
+    if(txRecords.isEmpty){
+      print('Empty table');
+      return;
+    }
     await tableExistsFunc();
     if (dbExists && tableExists) {
       for (SingleRecordClass rec in txRecords) {
