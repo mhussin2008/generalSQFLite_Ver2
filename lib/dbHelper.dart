@@ -64,11 +64,11 @@ class DbHelper {
 
 // ////////////////////////////////////////////////////////////////////////////////
 
-  static Future<void> addDataToTable(List<SingleRecordClass> txRecords) async {
+  static Future<bool> addDataToTable(List<SingleRecordClass> txRecords) async {
     int result;
     if(txRecords.isEmpty){
       print('Empty table');
-      return;
+      return false;
     }
     await tableExistsFunc();
     if (dbExists && tableExists) {
@@ -77,7 +77,8 @@ class DbHelper {
             'INSERT INTO data (Name, Age) VALUES ("${rec.name}", "${rec.age}")');
         print(result.toString());
       }
-    }
+      return true;
+    }else{return false;}
   }
 /////////
 
@@ -166,8 +167,8 @@ class DbHelper {
   //   }
   // }
 
-  static Future<void> readFromDatabase() async {
-    dbExistsFunc();
+  static Future<bool> readFromDatabase() async {
+     dbExistsFunc();
     //tableExistsFunc();
     if (dbExists) {
       if (db!.isOpen) {
@@ -183,13 +184,18 @@ class DbHelper {
             // print(element.runtimeType);
             print(element.toString());
           }
+          return true;
         } else {
           print('table not found');
+          return false;
         }
       } else {
         print('database not opened yet');
+        return false;
       }
-    } else
+    } else {
+      return false;
+    }
       print('database doesnt exist');
   }
 }

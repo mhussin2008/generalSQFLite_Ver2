@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:word_generator/word_generator.dart';
 
-class generalKeys {
-  static GlobalKey dataTableKey = GlobalKey();
-  static GlobalKey drawerKey = GlobalKey();
+class GeneralData {
+  // static GlobalKey dataTableKey = GlobalKey();
+  // static GlobalKey drawerKey = GlobalKey();
   static List<ValueNotifier> statusNotifier =
       List.generate(4, (index) => ValueNotifier(false));
 }

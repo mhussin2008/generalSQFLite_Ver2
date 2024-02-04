@@ -5,10 +5,10 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'dataClass.dart';
 
 class SimpleTablePage extends StatefulWidget {
-  SimpleTablePage({
-    Key? key,
+  const SimpleTablePage({super.key,
+
     //required this.user,
-  }) : super(key: generalKeys.dataTableKey);
+  }) ;
 
   @override
   State<SimpleTablePage> createState() => _SimpleTablePageState();

@@ -4,7 +4,7 @@ import 'package:general_sqflite_ver2/dataClass.dart';
 import 'dbHelper.dart';
 
 class DrawerWidget extends StatelessWidget {
-  DrawerWidget(this.callBackFunc) : super(key: generalKeys.drawerKey);
+  const DrawerWidget(this.callBackFunc, {super.key}) ;
   final VoidCallback callBackFunc;
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class DrawerWidget extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (index == 0) {
-                            generalKeys.statusNotifier[0].value = true;
+                            GeneralData.statusNotifier[0].value = true;
 
                             // generalKeys.dataTableKey.currentState!.setState(() {
                             //   status[0] = true;
@@ -82,29 +82,31 @@ class DrawerWidget extends StatelessWidget {
                             /// create DB
                             await DbHelper.initialize();
                             if (DbHelper.dbExists == true) {
-                              generalKeys.statusNotifier[1].value = true;
+                              GeneralData.statusNotifier[1].value = true;
                             }
                             if (DbHelper.tableExists == true) {
-                              generalKeys.statusNotifier[2].value = true;
+                              GeneralData.statusNotifier[2].value = true;
                             }
                           }
                           if (index == 2) {
                             await DbHelper.createTable();
                             if (DbHelper.tableExists == true) {
                               print('created table okok');
-                              generalKeys.statusNotifier[2].value = true;
+                              GeneralData.statusNotifier[2].value = true;
                             }
                           }
 
                           //save to db
                           if (index == 3) {
                             //save to db
-                            if (RecordsListClass.recordsList.isNotEmpty) {
-                              await DbHelper.addDataToTable(
-                                  RecordsListClass.recordsList);
-                              generalKeys.statusNotifier[3].value = true;
+                            if (RecordsListClass.recordsList.isNotEmpty)  {
+                              if(await DbHelper.addDataToTable(
+                                  RecordsListClass.recordsList)==true)
+                             { GeneralData.statusNotifier[3].value = true;}
                             }else(print('Empty Data Table'));
                           }
+
+
                         },
                         child: Text(commandsUpper[index])),
                   ),
@@ -116,7 +118,7 @@ class DrawerWidget extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (index == 0) {
-                            generalKeys.statusNotifier[0].value = false;
+                            GeneralData.statusNotifier[0].value = false;
 
                             // generalKeys.dataTableKey.currentState!.setState(() {
                             //   status[0] = false;
@@ -129,26 +131,27 @@ class DrawerWidget extends StatelessWidget {
                           }
                           if (index == 1) {
                             await DbHelper.deleteDatabase();
-                            generalKeys.statusNotifier[1].value = false;
-                            generalKeys.statusNotifier[2].value = false;
-                            generalKeys.statusNotifier[3].value = false;
+                            GeneralData.statusNotifier[1].value = false;
+                            GeneralData.statusNotifier[2].value = false;
+                            GeneralData.statusNotifier[3].value = false;
                           }
                           if (index == 2) {
                             await DbHelper.deleteTable();
                             if (DbHelper.tableExists == false) {
-                              generalKeys.statusNotifier[2].value = false;
+                              GeneralData.statusNotifier[2].value = false;
                             }
                           }
                           if (index == 3) {
                             // get data from DB
-                            await DbHelper.readFromDatabase();
+                            if ((await DbHelper.readFromDatabase())==true){
                             if (RecordsListClass.recordsList.isNotEmpty) {
-                              generalKeys.statusNotifier[0].value = true;
-                              generalKeys.statusNotifier[3].value = true;
+                              GeneralData.statusNotifier[0].value = true;
+                              GeneralData.statusNotifier[3].value = true;
                             }
-                            generalKeys.dataTableKey.currentState!
-                                .setState(() {});
-                          }
+                            callBackFunc();
+                            // generalKeys.dataTableKey.currentState!
+                            //     .setState(() {});
+                          }}
                         },
                         child: Text(commandsLower[index])),
                   ),
@@ -166,11 +169,11 @@ class DrawerWidget extends StatelessWidget {
                     captions[index]),
 
                 ValueListenableBuilder(
-                    valueListenable: generalKeys.statusNotifier[index],
+                    valueListenable: GeneralData.statusNotifier[index],
                     builder: (context, snapshot, child) {
                       // print(
                       //     'im here ${generalKeys.statusNotifier[index].value}');
-                      return generalKeys.statusNotifier[index].value
+                      return GeneralData.statusNotifier[index].value
                           ? imageTrue
                           : imageFalse;
                     }),
